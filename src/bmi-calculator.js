@@ -42,15 +42,9 @@ class BMICalculator extends Component {
           </nav>
 
           <Switch>
-            <Route path="/form">
-              <BMIForm/>
-            </Route>
-            <Route path="/faqs">
-              <FAQs />
-            </Route>
-            <Route path="/">
-              <BMITable allBMIs={allBMIs} />
-            </Route>
+            <Route path="/form" component={BMIForm} />
+            <Route path="/faqs" component={FAQs} />
+            <Route path="/" render={(allBMIs) => <BMITable {...allBMIs} />} />
           </Switch>
         </div>
       </Router>

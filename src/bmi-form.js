@@ -37,6 +37,7 @@ class BMIForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const {history} = this.props;
     
     if (this.validForm()) {
       const { name, weight, height } = this.state;
@@ -45,6 +46,7 @@ class BMIForm extends Component {
         type: 'ADD_BMI',
         payload: { name, weight, height }
       });
+      history.push("/");
     } else {
       alert('Invalid Form');
     }
