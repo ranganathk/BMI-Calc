@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Button, Form  } from 'react-bootstrap';
 
 class BMIForm extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class BMIForm extends Component {
     this.handleHeight = this.handleHeight.bind(this);
     this.handleWeight = this.handleWeight.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.validForm = this.validForm.bind(this);
   }
 
   handleName(event) {
@@ -27,32 +29,48 @@ class BMIForm extends Component {
     this.setState({ weight: event.target.value });
   }
 
+  validForm() {
+    const { name, weight, height } = this.state;
+    return (!!name && !!weight && !!height);
+  }
+
   handleSubmit(event) {
     event.preventDefault();
-    const {name, weight, height} = this.state;
-    const {updateTable} = this.props;
-    updateTable({'name': name, 'weight': weight, 'height': height});
-    this.setState({ name: '', height: '', weight: '' })
+    
+    if (this.validForm()) {
+      const { name, weight, height } = this.state;
+      const { updateTable } = this.props;
+      updateTable({ 'name': name, 'weight': weight, 'height': height });
+    } else {
+      alert('Invalid Form');
+      document.getElementById("bmi-form").reset()
+    }
+
+    this.setState({ name: '', height: '', weight: '' });
   }
 
   render() {
     const {name, height, weight} = this.state;
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={name} onChange={this.handleName} />
-        </label>
-        <label>
-          Height:
-          <input type="number" value={height} onChange={this.handleHeight} />
-        </label>
-        <label>
-          Weight:
-          <input type="number" value={weight} onChange={this.handleWeight} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <Form inline id="bmi-form">
+          <Form.Group>
+            <Form.Label>Name</Form.Label>
+            <Form.Control type="text" onChange={this.handleName} placeholder="Enter Name" />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Weight(kgs)</Form.Label>
+            <Form.Control type="string" type="number" onChange={this.handleWeight} />
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Height(cms)</Form.Label>
+            <Form.Control type="string" onChange={this.handleHeight} />
+          </Form.Group>
+          <Button variant="primary" type="submit" onClick={this.handleSubmit}> 
+            Submit
+          </Button>
+        </Form>
+      </div>
     );
   }
 }

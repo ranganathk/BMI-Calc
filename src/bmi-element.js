@@ -9,11 +9,11 @@ class BMIElement extends Component {
   render() {
     const {name, height, weight} = this.props.details;
     return (
-      <div> 
-        Name: {name}
-        Weight: {weight}
-        Height: {height}
-      </div>
+      <tr>
+        <td>{name}</td>
+        <td>{weight}</td>
+        <td>{height}</td>
+      </tr>
     );
   }
 }

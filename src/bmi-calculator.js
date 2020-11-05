@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import BMIForm from './bmi-form';
 import BMITable from './bmi-table';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 class BMICalculator extends Component {
   constructor(props) {
@@ -18,8 +24,6 @@ class BMICalculator extends Component {
   }
 
   updateTable(value) {
-    console.log('jbajndjnjmkn');
-    console.log(value);
     this.setState(state => {
       const newList = [...state.allBMIs, value];
       return {
@@ -32,8 +36,8 @@ class BMICalculator extends Component {
     const {allBMIs} = this.state;
     return (
       <div>
-        <BMIForm updateTable={this.updateTable} />
-        <BMITable allBMIs={allBMIs} />
+          <BMIForm updateTable={this.updateTable} />
+          <BMITable allBMIs={allBMIs} />
       </div>
     );
   }
