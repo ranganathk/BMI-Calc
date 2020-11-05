@@ -25,7 +25,6 @@ const BMITable = (props) => {
   );
 }
 
-
 const mapStateToProps = state => {
   return { allBMIs: state.allBMIs };
 }

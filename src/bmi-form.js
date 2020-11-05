@@ -44,7 +44,7 @@ class BMIForm extends Component {
       dispatch({
         type: 'ADD_BMI',
         payload: { name, weight, height }
-      })
+      });
     } else {
       alert('Invalid Form');
     }
