@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Button, Form  } from 'react-bootstrap';
+import {connect} from 'react-redux';
 
 class BMIForm extends Component {
   constructor(props) {
@@ -39,8 +40,11 @@ class BMIForm extends Component {
     
     if (this.validForm()) {
       const { name, weight, height } = this.state;
-      const { updateTable } = this.props;
-      updateTable({ 'name': name, 'weight': weight, 'height': height });
+      const {dispatch} = this.props;
+      dispatch({
+        type: 'ADD_BMI',
+        payload: { name, weight, height }
+      })
     } else {
       alert('Invalid Form');
     }
@@ -74,4 +78,12 @@ class BMIForm extends Component {
   }
 }
 
-export default BMIForm;
+const mapStateToProps = state => {
+  return { allBMIs: state.allBMIs }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {dispatch};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(BMIForm);

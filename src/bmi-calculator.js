@@ -20,18 +20,6 @@ class BMICalculator extends Component {
         "height": "175"
       }]
     };
-    // this.handleName = this.handleName.bind(this);
-
-    this.updateTable = this.updateTable.bind(this);
-  }
-
-  updateTable(value) {
-    this.setState(state => {
-      const newList = [...state.allBMIs, value];
-      return {
-        allBMIs: newList
-      };
-    });
   }
 
   render() {
@@ -53,11 +41,9 @@ class BMICalculator extends Component {
             </ul>
           </nav>
 
-          {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
           <Switch>
             <Route path="/form">
-              <BMIForm updateTable={this.updateTable} />
+              <BMIForm/>
             </Route>
             <Route path="/faqs">
               <FAQs />
@@ -65,7 +51,6 @@ class BMICalculator extends Component {
             <Route path="/">
               <BMITable allBMIs={allBMIs} />
             </Route>
-            
           </Switch>
         </div>
       </Router>

@@ -1,37 +1,36 @@
 import React, { Component } from 'react';
 import BMIElement from './bmi-element';
 import { Table } from 'react-bootstrap';
+import {connect} from 'react-redux';
 
-class BMITable extends Component {
-  constructor(props) {
-    super(props);
-    // this.handleName = this.handleName.bind(this);
-  }
-
-  render() {
-    const {allBMIs} = this.props;
-    return (
-      <div>
-        <Table striped bordered hover >
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Weight</th>
-              <th>Height</th>
-            </tr>
-          </thead>
-          <tbody>
-            {allBMIs.map((bmi, index) => {
-              return <BMIElement key={bmi.name} details={bmi} />
-            })}
-          </tbody>
-        </Table>
-      </div>
-    );
-  }
+const BMITable = (props) => {
+  const { allBMIs } = props;
+  return (
+    <div>
+      <Table striped bordered hover >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Weight</th>
+            <th>Height</th>
+          </tr>
+        </thead>
+        <tbody>
+          {allBMIs.map((bmi, index) => {
+            return <BMIElement key={bmi.name} details={bmi} />
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
 }
 
-export default BMITable;
+
+const mapStateToProps = state => {
+  return { allBMIs: state.allBMIs };
+}
+
+export default connect(mapStateToProps)(BMITable);
 
 
  
