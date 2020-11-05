@@ -12,11 +12,20 @@ const reducer = (state = initialState, action) => {
     }; 
   } else if (action.type === 'REMOVE_BMI') {
     const newList = state.allBMIs.filter((bmi) => {
-      return bmi.name !== action.payload.name
+      return bmi.id !== action.payload.id
     });
     return {
       allBMIs: newList
     };
+  } else if (action.type === 'UPDATE_BMI') {
+    const {id, name, weight, height} = action.payload;
+    const newObj = {id, name, weight, height};
+    const index = state.allBMIs.findIndex((bmi) => bmi.id === id);
+    const newList = [...state.allBMIs];
+    newList[index] = newObj;
+    return {
+      allBMIs: newList
+    }
   }
 
   return state;

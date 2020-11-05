@@ -12,15 +12,19 @@ class BMIElement extends Component {
 
   handleDelete() {
     const { dispatch } = this.props;
-    const { name, height, weight } = this.props.details;
+    const { id } = this.props.details;
     dispatch({
       type: 'REMOVE_BMI',
-      payload: { name, weight, height }
+      payload: { id }
     });
   }
 
   handleEdit() {
-    
+    const { history, details } = this.props;
+    history.push({
+      pathname: '/form',
+      state: {details}
+    });
   }
 
   render() {

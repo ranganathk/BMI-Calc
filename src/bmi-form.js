@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Form  } from 'react-bootstrap';
 import {connect} from 'react-redux';
+import uuid from 'react-uuid';
 
 class BMIForm extends Component {
   constructor(props) {
@@ -41,11 +42,20 @@ class BMIForm extends Component {
     
     if (this.validForm()) {
       const { name, weight, height } = this.state;
-      const {dispatch} = this.props;
-      dispatch({
-        type: 'ADD_BMI',
-        payload: { name, weight, height }
-      });
+      const { dispatch } = this.props;
+      if (this.props.location.state && this.props.location.state.details) {
+        const { id } = this.props.location.state.details;
+        dispatch({
+          type: 'UPDATE_BMI',
+          payload: {name, weight, height, id}
+        });
+      } else {
+        const id = uuid();
+        dispatch({
+          type: 'ADD_BMI',
+          payload: { name, weight, height, id }
+        });
+      }
       history.push("/");
     } else {
       alert('Invalid Form');
@@ -54,8 +64,16 @@ class BMIForm extends Component {
     this.setState({ name: '', height: '', weight: '' });
   }
 
+  componentDidMount() {
+    if (this.props.location.state && this.props.location.state.details) {
+      const {name, weight, height} = this.props.location.state.details;
+      this.setState({name, weight, height});
+    }
+  }
+
   render() {
     const {name, height, weight} = this.state;
+
     return (
       <div>
         <Form inline id="bmi-form">

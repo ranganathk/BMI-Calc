@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap';
 import {connect} from 'react-redux';
 
 const BMITable = (props) => {
-  const { allBMIs } = props;
+  const { allBMIs, history } = props;
   return (
     <div>
       <Table striped bordered hover >
@@ -17,7 +17,7 @@ const BMITable = (props) => {
         </thead>
         <tbody>
           {allBMIs.map((bmi, index) => {
-            return <BMIElement key={bmi.name} details={bmi} />
+            return <BMIElement key={bmi.id} details={bmi} history={history} />
           })}
         </tbody>
       </Table>
