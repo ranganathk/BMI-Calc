@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import BMIForm from './bmi-form';
 import BMITable from './bmi-table';
+import FAQs from './faqs';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -35,10 +37,38 @@ class BMICalculator extends Component {
   render() {
     const {allBMIs} = this.state;
     return (
-      <div>
-          <BMIForm updateTable={this.updateTable} />
-          <BMITable allBMIs={allBMIs} />
-      </div>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/form">Form</Link>
+              </li>
+              <li>
+                <Link to="/faqs">FAQs</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+          <Switch>
+            <Route path="/form">
+              <BMIForm updateTable={this.updateTable} />
+            </Route>
+            <Route path="/faqs">
+              <FAQs />
+            </Route>
+            <Route path="/">
+              <BMITable allBMIs={allBMIs} />
+            </Route>
+            
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
